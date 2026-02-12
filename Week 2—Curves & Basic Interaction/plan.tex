@@ -1,0 +1,110 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{teal},
+  frame=single,
+  breaklines=true
+}
+
+\title{Curves \& Interactivity Lesson Plan}
+\author{Jackson Eshbaugh}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\section*{Learning Goals}
+By the end of this lesson, students will be able to:
+\begin{itemize}[leftmargin=*]
+  \item Explain how control points influence the shape of a curve.
+  \item Describe where a curve exists relative to its control points.
+  \item Use \texttt{curve()} and \texttt{curveVertex()} to draw smooth curves.
+  \item Explain why \texttt{setup()} and \texttt{draw()} are required for interactivity.
+  \item Create interactive sketches using mouse input.
+\end{itemize}
+
+\section{Curves in Processing}
+
+\subsection{The \texttt{curve()} Function}
+\begin{lstlisting}
+curve(cpx1, cpy1, x1, y1, x2, y2, cpx2, cpy2);
+\end{lstlisting}
+
+\subsection{Conceptual Model}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Control points} \texttt{(cpx1, cpy1)} and \texttt{(cpx2, cpy2)} pull the curve in a direction.
+  \item Control points tell the curve \emph{how to bend}, not where it must go.
+  \item The curve is \emph{pulled} by the control points; think of this as blending directions rather than snapping to points.
+  \item The curve only exists between \texttt{(x1, y1)} and \texttt{(x2, y2)}.
+  \item Control points influence the shape outside that region but are not part of the drawn curve.
+\end{itemize}
+
+\subsection{Multiple Curves with \texttt{curveVertex()}}
+\begin{itemize}[leftmargin=*]
+  \item When using multiple \texttt{curveVertex()} calls, the curve exists between each pair of consecutive vertices.
+  \item Neighboring vertices act as control points for the segment being drawn.
+\end{itemize}
+
+\section{Control Point Demonstrations}
+
+\subsection{Example 1: Static Comparison}
+\begin{itemize}[leftmargin=*]
+  \item Show two curves with the same endpoints.
+  \item Change only the control point locations.
+  \item Emphasize how dramatically the curve changes even though the endpoints remain fixed.
+\end{itemize}
+
+\subsection{Example 2: Interactive Control Points}
+\begin{itemize}[leftmargin=*]
+  \item Start with both control points set to \texttt{mouseX} and \texttt{mouseY}.
+  \item Observe how the curve responds in real time.
+  \item Fix one control point at a static location.
+  \item Vary only the remaining control point to isolate its effect.
+\end{itemize}
+
+\section{Interactivity in Processing}
+
+\subsection{The Two Key Functions}
+\begin{itemize}[leftmargin=*]
+  \item \texttt{setup()} — called once at the beginning; prepares the program.
+  \item \texttt{draw()} — called once per frame; runs in a loop.
+\end{itemize}
+
+\subsection{Why This Enables Interactivity}
+Because \texttt{draw()} runs repeatedly, values can change over time, allowing the program to respond to input.
+
+\subsection{Mouse Variables}
+\begin{itemize}[leftmargin=*]
+  \item \texttt{mouseX}, \texttt{mouseY}: current mouse position.
+  \item \texttt{pmouseX}, \texttt{pmouseY}: previous frame's mouse position.
+\end{itemize}
+
+\section{Live Coding Examples}
+
+\subsection{Moving Ball}
+\begin{itemize}[leftmargin=*]
+  \item Demonstrate a ball that follows the mouse.
+  \item Emphasize calling \texttt{background()} at the start of \texttt{draw()}.
+  \item Explain that this clears previous frames to prevent visual trails.
+\end{itemize}
+
+\subsection{Drawing with Mouse Motion}
+\begin{itemize}[leftmargin=*]
+  \item Draw lines between \texttt{mouseX, mouseY} and \texttt{pmouseX, pmouseY}.
+  \item Show how this creates a paint- or drawing-like effect.
+  \item Discuss why previous mouse position is essential for smooth strokes.
+\end{itemize}
+
+\section*{Wrap-Up}
+Reinforce the idea that curves are shaped by direction rather than fixed points, and that interactivity emerges from repetition over time. Encourage students to experiment with control points and mouse input to develop intuition.
+
+\end{document}
